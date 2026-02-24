@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยกเลิกการจอง</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-red-200 to-yellow-300 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-5">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800 drop-shadow-lg">❌ ยกเลิกการจอง ❌</h1>
+        
+        <div class="bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 w-full max-w-md mx-auto text-center">
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">คุณต้องการยกเลิกการจองห้องนี้หรือไม่?</h2>
+            <p id="cancel-room" class="text-lg text-gray-600 mb-4"></p>
+
+            <!-- ปุ่มยกเลิกการจอง -->
+            <button id="cancel-booking" class="bg-red-500 text-white px-6 py-2 rounded-md hover:bg-red-700 transition duration-300 w-full mb-4">ยกเลิกการจอง</button>
+            
+            <!-- ปุ่มกลับไปหน้าหลัก -->
+            <a href="index.html" class="block mt-4 text-blue-500 hover:underline">🔙 กลับไปหน้าหลัก</a>
+        </div>
+    </div>
+
+    <script>
+        // ดึงค่าห้องที่เลือกจาก URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const room = urlParams.get("room");
+        const roomElement = document.getElementById("cancel-room");
+        
+        if (room) {
+            roomElement.innerHTML = `ห้องที่คุณจอง: <strong>${room}</strong>`;
+        } else {
+            roomElement.textContent = "ไม่พบข้อมูลห้องที่เลือก";
+        }
+
+        // ฟังก์ชั่นยกเลิกการจอง
+        document.getElementById("cancel-booking").addEventListener("click", function() {
+            const bookedRooms = JSON.parse(localStorage.getItem("bookedRooms")) || [];
+            const roomIndex = bookedRooms.indexOf(room);
+            
+            if (roomIndex > -1) {
+                bookedRooms.splice(roomIndex, 1);  // เอาห้องที่ยกเลิกออกจาก array
+                localStorage.setItem("bookedRooms", JSON.stringify(bookedRooms));
+                alert(`คุณได้ยกเลิกการจองห้อง ${room} แล้ว`);
+                window.location.href = "index.html";  // ไปยังหน้าหลัก
+            } else {
+                alert("ห้องนี้ไม่ได้ถูกจอง");
+            }
+        });
+    </script>
+</body>
+</html>

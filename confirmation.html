@@ -1,0 +1,66 @@
+<!-- <!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืนยันการจอง</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-green-200 to-blue-300 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-5 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 drop-shadow-lg">✅ คุณได้จองเรียบร้อยแล้ว ✅</h1>
+        <p id="confirmation-message" class="text-xl text-gray-700 mt-4"></p>
+        <a href="index.html" class="mt-6 inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300">🏠 กลับไปหน้าหลัก</a>
+    </div>
+
+    <script>
+        // ดึงค่าห้องที่จองและชื่อจาก URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const room = urlParams.get("room");
+        const name = urlParams.get("name");
+        
+        const messageElement = document.getElementById("confirmation-message");
+        if (room && name) {
+            messageElement.innerHTML = `ขอบคุณ <strong>${name}</strong> ที่จองห้อง <strong>${room}</strong> กับเรา!`;
+        } else {
+            messageElement.textContent = "ไม่พบข้อมูลการจองของคุณ";
+        }
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืนยันการจอง</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-green-200 to-blue-300 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-5 text-center">
+        <h1 class="text-4xl font-bold text-gray-800 drop-shadow-lg">✅ คุณได้จองเรียบร้อยแล้ว ✅</h1>
+        <p id="confirmation-message" class="text-xl text-gray-700 mt-4"></p>
+        <a href="javascript:void(0);" id="confirm-button" class="mt-6 inline-block bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-300">🏠 กลับไปหน้าหลัก</a>
+    </div>
+
+    <script>
+        // ดึงค่าห้องที่จองและชื่อจาก URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const room = urlParams.get("room");
+        const name = urlParams.get("name");
+        
+        const messageElement = document.getElementById("confirmation-message");
+        if (room && name) {
+            messageElement.innerHTML = `ขอบคุณ <strong>${name}</strong> ที่จองห้อง <strong>${room}</strong> กับเรา!`;
+        } else {
+            messageElement.textContent = "ไม่พบข้อมูลการจองของคุณ";
+        }
+
+        // ฟังก์ชันเมื่อกดปุ่ม "กลับไปหน้าหลัก"
+        document.getElementById("confirm-button").addEventListener("click", function() {
+            // ส่งผู้ใช้กลับไปยังหน้า index.html
+            window.location.href = "index.html"; 
+        });
+    </script>
+</body>
+</html>

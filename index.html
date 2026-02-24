@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบจองห้องพัก</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-200 to-purple-300 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto p-5">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800 drop-shadow-lg">🏠 ระบบจองห้องพัก 🏠</h1>
+        
+        <div id="dorms" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- หอพักจะถูกเพิ่มโดย JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        const dorms = {
+            "หอ A": ["A101", "A102", "A103", "A104", "A105"],
+            "หอ B": ["B201", "B202", "B203", "B204", "B205"],
+            "หอ C": ["C301", "C302", "C303", "C304", "C305"]
+        };
+
+        const dormContainer = document.getElementById("dorms");
+
+        // ดึงห้องที่จองแล้วจาก localStorage
+        const bookedRooms = JSON.parse(localStorage.getItem("bookedRooms")) || [];
+
+        Object.keys(dorms).forEach(dorm => {
+            const dormCard = document.createElement("div");
+            dormCard.className = "bg-white p-6 rounded-2xl shadow-lg border-2 border-gray-200 hover:shadow-2xl transition duration-300";
+            
+            let roomList = "";
+            dorms[dorm].forEach(room => {
+                const isBooked = bookedRooms.includes(room);  // ตรวจสอบว่าห้องนี้ถูกจองหรือไม่
+                roomList += `
+                    <a href='booking.html?room=${room}' 
+                        class='block w-full ${isBooked ? 'bg-red-500' : 'bg-blue-500'} text-white px-4 py-2 rounded-md my-2 hover:bg-blue-700 transition duration-300 text-center'>
+                        ห้อง ${room}
+                    </a>
+                    ${isBooked ? `<a href='cancel-booking.html?room=${room}' class='block w-full bg-yellow-500 text-white px-4 py-2 rounded-md my-2 hover:bg-yellow-700 transition duration-300 text-center'>ยกเลิกการจอง</a>` : ''}
+                `;
+            });
+            
+            dormCard.innerHTML = `
+                <h2 class="text-2xl font-semibold text-gray-700 text-center mb-3">🏢 ${dorm}</h2>
+                <div class="mt-2">${roomList}</div>
+            `;
+            dormContainer.appendChild(dormCard);
+        });
+    </script>
+</body>
+</html>
